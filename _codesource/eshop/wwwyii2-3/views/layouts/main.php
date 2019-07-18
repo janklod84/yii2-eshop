@@ -3,7 +3,6 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -11,39 +10,22 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\assets\ltAppAsset;
 
-
 AppAsset::register($this);
-
-// Первый метод подключение отдельнно скриптов
 ltAppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-<!--    <base href="/">-->
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <?php $this->registerCsrfMetaTags() ?>
+    <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 
-    <!-- Второй метод подключение скриптов -->
     <?php
-    /*
-       $this->registerJsFile('js/html5shiv.js', [
-          'position' => \yii\web\View::POS_HEAD,
-          'condition' => 'lte IE9'
-       ]);
-
-       $this->registerJsFile('js/repond.min.js', [
-        'position' => \yii\web\View::POS_HEAD,
-        'condition' => 'lte IE9'
-      ]);
-     */
+//        $this->registerJsFile('js/html5shiv.js', ['position' => \yii\web\View::POS_HEAD, 'condition' => 'lte IE9']);
+//        $this->registerJsFile('js/respond.min.js', ['position' => \yii\web\View::POS_HEAD, 'condition' => 'lte IE9']);
     ?>
 
     <link rel="shortcut icon" href="images/ico/favicon.ico">
@@ -332,6 +314,7 @@ ltAppAsset::register($this);
     </div>
 
 </footer><!--/Footer-->
+
 <?php $this->endBody() ?>
 </body>
 </html>

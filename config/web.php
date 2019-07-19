@@ -57,6 +57,8 @@ $config = [
                 'category/<id:\d+>' => 'category/view', // category/5
                 // правило for product
                 'product/<id:\d+>' => 'product/view', // product/4
+                // при обращение к search => call action 'category/search'
+                'search' => 'category/search', // http://yii.loc/search?q=ma_recherche
 
             ],
         ],

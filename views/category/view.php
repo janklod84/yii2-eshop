@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\LinkPager;
 
 ?>
 <section id="advertisement">
@@ -106,20 +107,27 @@ use yii\helpers\Html;
                   <?php if($i % 3 == 0): ?>
                      <div class="clearfix"></div>
                   <?php endif; ?>
-
                 <?php endforeach; ?>
-            <?php else: ?>
+                <div class="clearfix"></div>
+                 <!-- Вывод пагинацию display pagination -->
+                    <?= LinkPager::widget([
+                            'pagination' => $pages,
+                        ]);
+                    ?>
+                 <!-- Конец вывод -->
+            <?php else: ?> <!-- нет товаров -->
               <h2>Здесь пока товаров нет...</h2>
             <?php endif; ?>
-            <div class="clearfix"></div>
             <!-- End show items -->
 
+            <!--
             <ul class="pagination">
                 <li class="active"><a href="">1</a></li>
                 <li><a href="">2</a></li>
                 <li><a href="">3</a></li>
                 <li><a href="">&raquo;</a></li>
             </ul>
+           -->
         </div><!--features_items-->
     </div>
 </div>

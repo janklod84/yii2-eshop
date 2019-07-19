@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Category;
 use app\models\Product;
 use Yii;
+use yii\data\Pagination;
 
 
 /**
@@ -40,6 +41,7 @@ class CategoryController extends AppController
       * Action index
       * URL: http://yii.loc/category/29 [Exemple]
       *
+      * Pagination : https://www.yiiframework.com/doc/api/2.0/yii-data-pagination
       *
       * @param int $id
       * @return string
@@ -50,7 +52,24 @@ class CategoryController extends AppController
          $id = Yii::$app->request->get('id');
 
          // Получаем все продукты по данному номеру  id категорий category_id
-         $products = Product::find()->where(['category_id' => $id])->all();
+         # $products = Product::find()->where(['category_id' => $id])->all();
+
+         // Погинация
+         # https://www.yiiframework.com/doc/api/2.0/yii-data-pagination
+         # http://yii.loc/category/29?page=1&per-page=3
+         $query = Product::find()->where(['category_id' => $id]);
+         $pages = new Pagination([
+             'totalCount' => $query->count(), // count products
+             'pageSize' => 3, // it's perpage
+             'forcePageParam' => false, // отвечает за ЧПУ ссылки например чтобы убрать page=1, per-page=3
+             'pageSizeParam' => false
+         ]);
+
+         // Получаем все продукты
+         $products = $query->offset($pages->offset)
+                           ->limit($pages->limit)
+                           ->all();
+
 
          // Получаем категория
          $category = Category::findOne($id);
@@ -60,6 +79,6 @@ class CategoryController extends AppController
 
 
          // Вид
-         return $this->render('view', compact('products', 'category'));
+         return $this->render('view', compact('products', 'pages', 'category'));
      }
 }

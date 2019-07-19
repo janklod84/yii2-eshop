@@ -4,6 +4,14 @@
 
 $this->title = 'My Yii Application';
 ?>
+
+<ul class="catalog">
+<?= \app\components\MenuWidget::widget([
+    // parameters
+    'tpl' => 'menu'
+]) ?>
+</ul>
+
 <section id="slider"><!--slider-->
     <div class="container">
         <div class="row">
@@ -77,10 +85,10 @@ $this->title = 'My Yii Application';
                     <h2>Category</h2>
 
                     <!-- Menu widget -->
-                      <?= \app\components\MenuWidget::widget([
-                              // parameters
-                              'tpl' => 'menu'
-                      ]) ?>
+                      <? // = \app\components\MenuWidget::widget([
+                              # parameters
+                              //'tpl' => 'menu'
+                      //]) ?>
                     <!-- End Menu widget -->
                     <div class="panel-group category-products" id="accordian"><!--category-productsr-->
                         <div class="panel panel-default">

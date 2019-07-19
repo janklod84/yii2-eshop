@@ -20,6 +20,7 @@ class ProductController extends AppController
      *
      * @param $id
      * @return string
+     * @throws \yii\web\HttpException
      */
      public function actionView($id)
      {
@@ -28,13 +29,20 @@ class ProductController extends AppController
           // ленивая загрузка
           $product = Product::findOne($id);
 
+          // обработаем ошибки в случае если не будет продуктов по текушем id
+          if(empty($product))
+          {
+             throw new \yii\web\HttpException(404, 'Такого товара нет.');
+          }
+
+
           /*
-          // Жадная загрузка
-          $product = Product::find()->with('category')
-                                   ->where(['id' => $id])
-                                   ->limit(1)
-                                   ->one();
-          */
+            // Жадная загрузка
+            $product = Product::find()->with('category')
+                                  ->where(['id' => $id])
+                                  ->limit(1)
+                                  ->one();
+         */
 
           // Рекоммендуемые товары
           $hits = Product::find()->where(['hit' => '1'])->limit(6)->all();

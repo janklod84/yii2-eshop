@@ -51,6 +51,17 @@ class CategoryController extends AppController
          // Получаем id категории через GET parametre
          $id = Yii::$app->request->get('id');
 
+
+         // Получаем категория
+         $category = Category::findOne($id);
+
+         // обработаем ошибки в случае если не будет категория по текушем id
+         if(empty($category))
+         {
+             throw new \yii\web\HttpException(404, 'такой категории нет.');
+         }
+
+
          // Получаем все продукты по данному номеру  id категорий category_id
          # $products = Product::find()->where(['category_id' => $id])->all();
 
@@ -70,9 +81,6 @@ class CategoryController extends AppController
                            ->limit($pages->limit)
                            ->all();
 
-
-         // Получаем категория
-         $category = Category::findOne($id);
 
          // установить метаданных
          $this->setMeta('E-SHOPPER | ' . $category->name, $category->keywords, $category->description);

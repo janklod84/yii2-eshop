@@ -36,6 +36,13 @@ class ProductController extends AppController
                                    ->one();
           */
 
-          return $this->render('view', compact('product'));
+          // Рекоммендуемые товары
+          $hits = Product::find()->where(['hit' => '1'])->limit(6)->all();
+
+          // установить метаданных
+          $this->setMeta('E-SHOPPER | ' . $product->name, $product->keywords, $product->description);
+
+
+          return $this->render('view', compact('product', 'hits'));
      }
 }

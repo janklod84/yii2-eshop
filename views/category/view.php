@@ -69,21 +69,16 @@ use yii\widgets\LinkPager;
                                 <div class="productinfo text-center">
                                     <?= Html::img("@web/images/products/{$product->img}", ['alt' => $product->name]) ?>
                                     <h2>$<?= $product->price ?></h2>
-                                    <p><?= $product->name ?></p>
+                                    <p>
+                                        <a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $product->id]) ?>">
+                                            <?= $product->name ?>
+                                        </a>
+                                    </p>
                                     <a href="#" class="btn btn-default add-to-cart">
                                         <i class="fa fa-shopping-cart"></i>Add to cart
                                     </a>
                                 </div>
 
-                                <!--
-                                <div class="product-overlay">
-                                    <div class="overlay-content">
-                                        <h2>$56</h2>
-                                        <p>Easy Polo Black Edition</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                    </div>
-                                </div>
-                                -->
                                 <!-- Вывод иконочку new , sale .. -->
                                 <?php if($product->new): ?>
                                     <?= Html::img("@web/images/home/new.png", ['alt' => 'Новинка', 'class' => 'new']) ?>
@@ -119,15 +114,6 @@ use yii\widgets\LinkPager;
               <h2>Здесь пока товаров нет...</h2>
             <?php endif; ?>
             <!-- End show items -->
-
-            <!--
-            <ul class="pagination">
-                <li class="active"><a href="">1</a></li>
-                <li><a href="">2</a></li>
-                <li><a href="">3</a></li>
-                <li><a href="">&raquo;</a></li>
-            </ul>
-           -->
         </div><!--features_items-->
     </div>
 </div>

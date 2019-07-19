@@ -52,9 +52,11 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 // правило for pagination
-                'category/<id:\d+>/page/<page:\d+>' => 'category/view',
+                'category/<id:\d+>/page/<page:\d+>' => 'category/view', // category/29/page/2
                 // правило for category
-                'category/<id:\d+>' => 'category/view',
+                'category/<id:\d+>' => 'category/view', // category/5
+                // правило for product
+                'product/<id:\d+>' => 'product/view', // product/4
 
             ],
         ],

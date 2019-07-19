@@ -2,8 +2,6 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
-
 use yii\helpers\Html;
 use yii\web\View;
 

@@ -27,6 +27,10 @@ class CategoryController extends AppController
          // получаем все продукты из БД где hit равен 1 (hit = 1) и ограничем вывод на 6 продуктов по странице
          $hits = Product::find()->where(['hit' => '1'])->limit(6)->all();
 
+         // установить метаданных
+         $this->setMeta('E-SHOPPER');
+
+
          // вывод страницу
          return $this->render('index', compact('hits'));
      }
@@ -48,7 +52,14 @@ class CategoryController extends AppController
          // Получаем все продукты по данному номеру  id категорий category_id
          $products = Product::find()->where(['category_id' => $id])->all();
 
+         // Получаем категория
+         $category = Category::findOne($id);
+
+         // установить метаданных
+         $this->setMeta('E-SHOPPER | ' . $category->name, $category->keywords, $category->description);
+
+
          // Вид
-         return $this->render('view', compact('products'));
+         return $this->render('view', compact('products', 'category'));
      }
 }

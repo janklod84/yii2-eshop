@@ -4,6 +4,7 @@ namespace app\components;
 
 use yii\base\Widget;
 use app\models\Category;
+use Yii;
 
 
 /**
@@ -58,7 +59,16 @@ class MenuWidget extends Widget
         public function run()
         {
 
-             /*
+            # Попытаемся получить меню из кэша
+            $menu = Yii::$app->cache->get('menu');
+
+            # Если получили данные с кэша то его возврашаем
+            if($menu)
+            {
+                return $menu;
+            }
+
+            /*
                получаем данных ввиде объект
                $this->data = Category::find()->all();
                debug($this->data);
@@ -73,6 +83,10 @@ class MenuWidget extends Widget
             // получить готовый код html
             $this->menuHtml = $this->getMenuHtml($this->tree);
 
+            // установить кэш (set cache)
+            Yii::$app->cache->set('menu', $this->menuHtml, 60); // 1 minute
+
+            // вернем готовый HTML код
             return $this->menuHtml;
         }
 

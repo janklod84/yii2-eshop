@@ -1,5 +1,6 @@
 <li>
-    <a href="">
+    <!-- URL: http://yii.loc/category/view?id=28 -->
+    <a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $category['id']]) ?>">
         <?= $category['name'] ?>
         <!-- if has childs -->
         <?php if(isset($category['childs'])):?>

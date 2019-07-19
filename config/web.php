@@ -18,6 +18,7 @@ $config = [
             'cookieValidationKey' => '5I84atzkzejJlf6eH79sEDSU6FUFcf68',
             'baseUrl' => ''
         ],
+        // один из компонентов который отвечает за кэширования
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -49,6 +50,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                // правило
+                'category/<id:\d+>' => 'category/view'
             ],
         ],
     ],

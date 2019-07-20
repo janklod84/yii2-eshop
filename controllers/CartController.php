@@ -57,5 +57,17 @@ class CartController extends AppController
          // создадим новую корзину
          $cart = new Cart();
          $cart->addToCart($product);
+
+         /*
+         debug($session['cart']);
+         debug($session['cart.qty']);
+         debug($session['cart.sum'], true);
+         */
+
+         // убераем layout
+         $this->layout = false;
+         
+         // вид
+         return $this->render('cart-modal', compact('session'));
      }
 }

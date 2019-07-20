@@ -8,6 +8,33 @@
 	});
     /* end accordion */
 
+    /* Add to cart */
+    $('.add-to-cart').on('click', function (e) {
+		// отменим дефольное повидение переход по ссылке
+		e.preventDefault(); // or return false;
+		var id = $(this).data('id');
+
+		$.ajax({
+			url: '/cart/add',
+			data: {id: id},
+			type: 'GET',
+			success: function (res) {
+				// если пришел пуштую строку например
+				if(!res) { alert('Ошибка'); }
+				console.log(res);
+				// showCart(res);
+			},
+			error: function () {
+				alert('Error');
+			}
+		});
+
+		// отменим дефольное повидение переход по ссылке
+		// return false;
+	});
+
+    /* End Add to Cart */
+
 	var RGBChange = function() {
 	  $('#RGB').css('background', 'rgb('+r.getValue()+','+g.getValue()+','+b.getValue()+')')
 	};	

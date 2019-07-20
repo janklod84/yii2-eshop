@@ -8,6 +8,7 @@ use Yii;
 use yii\data\Pagination;
 
 
+
 /**
  * Class CategoryController
  *
@@ -105,7 +106,7 @@ class CategoryController extends AppController
      public function actionSearch()
      {
          // Получаем q через GET parametre
-         $q= trim(Yii::$app->request->get('q'));
+         $q = trim(Yii::$app->request->get('q'));
 
 
          // установить метаданных

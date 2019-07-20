@@ -80,4 +80,31 @@ class Cart extends ActiveRecord
             $_SESSION['cart.sum'] = $qty * $price;
         }
     }
+
+
+    /**
+     * Метод для пересчета корзины
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function recalc($id)
+    {
+        // если нет такого корзины
+        if(!isset($_SESSION['cart'][$id]))
+        {
+            return false;
+        }
+
+        // уменьшить количество товара
+        $qtyMinus = $_SESSION['cart'][$id]['qty'];
+        $sumMinus = $_SESSION['cart'][$id]['qty'] * $_SESSION['cart'][$id]['price'];
+
+        // Отнимаем количество и сумма товара
+        $_SESSION['cart.qty'] -= $qtyMinus; # и пересчитываем количество товара
+        $_SESSION['cart.sum'] -= $sumMinus; # и пересчитываем сумма
+
+        // удаляем текущая товар / корзина
+        unset($_SESSION['cart'][$id]);
+    }
 }

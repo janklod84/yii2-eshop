@@ -74,7 +74,7 @@ use yii\widgets\LinkPager;
                                             <?= $product->name ?>
                                         </a>
                                     </p>
-                                    <a href="#" class="btn btn-default add-to-cart">
+                                    <a href="#" data-id="<?= $product->id ?>" class="btn btn-default add-to-cart">
                                         <i class="fa fa-shopping-cart"></i>Add to cart
                                     </a>
                                 </div>

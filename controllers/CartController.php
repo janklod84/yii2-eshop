@@ -44,6 +44,13 @@ class CartController extends AppController
          // получаем id через request
          $id = Yii::$app->request->get('id');
 
+
+         // получаем qty через request
+         $qty = (int) Yii::$app->request->get('qty');
+
+         $qty = !$qty ? 1 : $qty;
+
+
          // получаем product по id
          $product = Product::findOne($id);
 
@@ -56,13 +63,20 @@ class CartController extends AppController
 
          // создадим новую корзину
          $cart = new Cart();
-         $cart->addToCart($product);
+         $cart->addToCart($product, $qty);
 
          /*
          debug($session['cart']);
          debug($session['cart.qty']);
          debug($session['cart.sum'], true);
          */
+
+         // если запрос не Ajax
+         if( !Yii::$app->request->isAjax)
+         {
+             // перенаправим пользователь от туда куда он пришел
+             return $this->redirect(Yii::$app->request->referrer);
+         }
 
          // убераем layout
          $this->layout = false;
@@ -134,5 +148,16 @@ class CartController extends AppController
 
          // Вид
          return $this->render('cart-modal', compact('session'));
+     }
+
+
+    /**
+     * Action view
+     *
+     * Отвечает за показа корзину
+     */
+     public function actionView()
+     {
+         return $this->render('view');
      }
 }

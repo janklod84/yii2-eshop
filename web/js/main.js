@@ -80,13 +80,15 @@
 
     /* Add to cart */
     $('.add-to-cart').on('click', function (e) {
+
 		// отменим дефольное повидение переход по ссылке
 		e.preventDefault(); // or return false;
-		var id = $(this).data('id');
+		var id  = $(this).data('id'),
+		    qty = $('#qty').val();
 
 		$.ajax({
 			url: '/cart/add',
-			data: {id: id},
+			data: {id: id, qty: qty},
 			type: 'GET',
 			success: function (res) {
 				// если пришел пустую строку например

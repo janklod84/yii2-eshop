@@ -8,6 +8,33 @@
 	});
     /* end accordion */
 
+   /* Show cart Отвечает за вывод/показ модальное окно */
+    function showCart(cart)
+	{
+       $('#cart .modal-body').html(cart);
+       $('#cart').modal();
+	}
+
+	/* Clear Cart [ очишает корзину ] */
+    function clearCart()
+	{
+		$.ajax({
+			url: '/cart/clear',
+			type: 'GET',
+			success: function (res) {
+				// если пришел пустую строку например
+				if(!res) { alert('Ошибка'); }
+				// console.log(res);
+				showCart(res);
+			},
+			error: function () {
+				alert('Error');
+			}
+		});
+	}
+
+   /* End Show cart */
+
     /* Add to cart */
     $('.add-to-cart').on('click', function (e) {
 		// отменим дефольное повидение переход по ссылке
@@ -19,10 +46,10 @@
 			data: {id: id},
 			type: 'GET',
 			success: function (res) {
-				// если пришел пуштую строку например
+				// если пришел пустую строку например
 				if(!res) { alert('Ошибка'); }
-				console.log(res);
-				// showCart(res);
+				// console.log(res);
+				showCart(res);
 			},
 			error: function () {
 				alert('Error');

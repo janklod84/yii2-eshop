@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use app\widgets\Alert;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -338,6 +339,24 @@ ltAppAsset::register($this);
     </div>
 
 </footer><!--/Footer-->
+
+<!-- Вывод модальное окно -->
+<?php
+Modal::begin([
+    'header' => '<h2>Корзина</h2>',
+    'id' => 'cart', // change default id='w0' by id='cart'
+     'size' => 'modal-lg',
+    'footer' => '
+      <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
+      <button type="button" class="btn btn-success">Оформить заказ</button>
+      <button type="button" class="btn btn-danger" onclick="clearCart()">Очистить корзину</button>'
+]);
+
+Modal::end()
+?>;
+
+<!-- Конец вывод модальное окно -->
+
 <?php $this->endBody() ?>
 </body>
 </html>

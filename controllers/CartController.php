@@ -171,8 +171,55 @@ class CartController extends AppController
          // принимем ли данные
          if( $order->load(Yii::$app->request->post()))
          {
-             debug(Yii::$app->request->post(), true);
+             /* debug(Yii::$app->request->post(), true); */
+             // заполняем поле qty, sum нашего таблицы по скольку они не заполняются в поле $form
+             $order->qty = $session['cart.qty'];
+             $order->sum = $session['cart.sum'];
+
+             // если заказ сохранен
+             // Для больших проектов можно испльзовать Транзакции через ActiveRecord
+             if($order->save())
+             {
+                  $this->saveOrderItems($session['cart'], $order->id);
+
+                  // установливаем Flash сообщение
+                  Yii::$app->session->setFlash('success', 'Ваш заказ принят. Менежер вскорое свяжется с Вами');
+
+                  // очишаем корзину
+                  $session->remove('cart');
+                  $session->remove('cart.qty');
+                  $session->remove('cart.sum');
+
+                  // редирект
+                  return $this->refresh();
+             }else{
+
+                  Yii::$app->session->setFlash('error', 'Ошибка оформления заказа');
+             }
          }
          return $this->render('view', compact('session', 'order'));
+     }
+
+
+    /**
+     * Save order items
+     *
+     * @param $items
+     * @param $order_id
+     */
+     protected function saveOrderItems($items, $order_id)
+     {
+         // При каждый цыл создаем новый объект OrderItems
+         foreach($items as $id => $item)
+         {
+              $order_items = new OrderItems();
+              $order_items->order_id = $order_id;
+              $order_items->product_id = $id;
+              $order_items->name  = $item['name'];
+              $order_items->price = $item['price'];
+              $order_items->qty_item  = $item['qty'];
+              $order_items->sum_item  = $item['qty'] * $item['price'];
+              $order_items->save();
+         }
      }
 }

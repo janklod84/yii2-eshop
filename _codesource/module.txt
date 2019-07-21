@@ -1,0 +1,11 @@
+CREATE MODULE admin
+http://yii.loc/gii/module
+
+Module class
+app\modules\admin\Module
+
+Module ID
+admin
+
+
+http://yii.loc/admin

@@ -32,6 +32,9 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            // указываем куда будем перенаправлен пользователь если не авторизован
+            // 'loginUrl' => 'cart', # например перенаправить на контроллер cart и экщион index
+            // 'loginUrl' => 'cart/view'
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

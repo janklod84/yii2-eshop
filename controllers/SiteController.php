@@ -32,7 +32,8 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    // Разрешение: Logout у нас доступен только методом POST и GET
+                    'logout' => ['post', 'get'],
                 ],
             ],
         ];

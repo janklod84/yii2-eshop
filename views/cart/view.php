@@ -20,6 +20,7 @@ use yii\widgets\ActiveForm;
         </div>
     <?php endif;?>
     <!-- End Flash -->
+    <!-- Cart --->
     <?php if(!empty($session['cart'])): ?>
         <div class="table-responsive">
             <table class="table table-hover table-striped">
@@ -80,4 +81,5 @@ use yii\widgets\ActiveForm;
     <?php else: ?>
         <h3>Корзина пуста</h3>
     <?php endif; ?>
+    <!-- End Cart -->
 </div>

@@ -28,6 +28,17 @@ class Order extends \yii\db\ActiveRecord
         return 'order';
     }
 
+
+    /**
+     * Связь hasMany()
+     *
+     * т.е один заказ может содержать множество себе товаров
+     */
+    public function getOrderItems()
+    {
+        return $this->hasMany(OrderItems::className(), ['order_id' => 'id']);
+    }
+
     /**
      * {@inheritdoc}
      */

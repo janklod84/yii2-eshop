@@ -85,6 +85,19 @@ $config = [
             ],
         ],
     ],
+    // UPLOAD IMAGE
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => 'mihaildev\elfinder\PathController',
+            'access' => ['@'], // доступен только для авторизованых пользователей
+            'root' => [
+                'baseUrl'=>'/web',
+                // 'basePath'=>'@webroot',
+                'path' => 'upload/global', // на реальном хостинге установить права
+                'name' => 'Global'
+            ],
+        ]
+    ],
     'params' => $params,
 ];
 

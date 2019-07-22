@@ -2,6 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
+
+# чтобы не было конфликт bootstrap.js
+mihaildev\elfinder\Assets::noConflict($this);
+
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Product */
@@ -24,7 +30,20 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+    <? // = $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+
+    <? /* = $form->field($model, 'content')->widget(CKEditor::className(), [
+                'editorOptions' => [
+                    'preset' => 'full',
+                    'inline' => false
+                ]
+       ]); */
+    ?>
+
+    <?= $form->field($model, 'content')->widget(CKEditor::className(), [
+        'editorOptions' => ElFinder::ckeditorOptions('elfinder', [])
+    ]);
+    ?>
 
     <?= $form->field($model, 'price')->textInput() ?>
 

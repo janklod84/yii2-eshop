@@ -8,11 +8,14 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru-RU',
+    // указываем маршрут по умолчанию для пользовского части
     'defaultRoute' => 'category/index',
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
             'layout' => 'admin', // указываем layout который использован
+            // указываем маршрут по умолчанию для админского части
+            'defaultRoute' => 'order/index',
         ],
     ],
     'aliases' => [

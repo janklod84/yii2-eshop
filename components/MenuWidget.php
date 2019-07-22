@@ -26,10 +26,12 @@ class MenuWidget extends Widget
        /**
         * @var string $tpl [ string template ]
         * @var array $data [ array data ]
+        * @var object $model
         * @var array $tree [ created tree array ]
         * @var string $menuHtml
        */
        public $tpl;
+       public $model;
        public $data;
        public $tree;
        public $menuHtml;
@@ -60,13 +62,15 @@ class MenuWidget extends Widget
         {
 
             # Попытаемся получить меню из кэша
-            $menu = Yii::$app->cache->get('menu');
-
-            # Если получили данные с кэша то его возврашаем
-            if($menu)
+            # чтобы не работать с кешированием в админ составим условие
+            if($this->tpl == 'menu.php')
             {
-                return $menu;
+                $menu = Yii::$app->cache->get('menu');
+
+                # Если получили данные с кэша то его возврашаем
+                if($menu) { return $menu; }
             }
+
 
             /*
                получаем данных ввиде объект
@@ -83,8 +87,11 @@ class MenuWidget extends Widget
             // получить готовый код html
             $this->menuHtml = $this->getMenuHtml($this->tree);
 
-            // установить кэш (set cache)
-            Yii::$app->cache->set('menu', $this->menuHtml, 60); // 1 minute
+            if($this->tpl == 'menu.php')
+            {
+                // установить кэш (set cache)
+                Yii::$app->cache->set('menu', $this->menuHtml, 60); // 1 minute
+            }
 
             // вернем готовый HTML код
             return $this->menuHtml;
@@ -119,15 +126,16 @@ class MenuWidget extends Widget
      * Get Menu Html
      *
      * @param array $tree
+     * @param string $tab
      * @return string
      */
-        protected function getMenuHtml($tree)
+        protected function getMenuHtml($tree, $tab = '')
         {
             $str = '';
 
             foreach($tree as $category)
             {
-                $str .= $this->catToTemplate($category);
+                $str .= $this->catToTemplate($category, $tab);
             }
 
             return $str;
@@ -135,10 +143,11 @@ class MenuWidget extends Widget
 
 
         /**
-         * @param $category
+         * @param array $category
+         * @param string $tab
          * @return false|string
         */
-        protected function catToTemplate($category)
+        protected function catToTemplate($category, $tab)
         {
             ob_start();
             include __DIR__. '/menu_tpl/'. $this->tpl;

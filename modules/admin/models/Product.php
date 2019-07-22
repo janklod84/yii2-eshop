@@ -21,6 +21,30 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+
+    /**
+     * @var $image
+     * @var $gallery
+     */
+    public $image;
+    public $gallery;
+
+
+    /**
+     * Behaviors Действия , применения перед сохранения данных
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+           'image' => [
+               'class' => 'rico\yii2images\behaviors\ImageBehave',
+           ]
+        ];
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -53,6 +77,8 @@ class Product extends \yii\db\ActiveRecord
             [['content', 'hit', 'new', 'sale'], 'string'],
             [['price'], 'number'],
             [['name', 'keywords', 'description', 'img'], 'string', 'max' => 255],
+            [['image'], 'file', 'extensions' => 'png, jpg'], // закрузки картинок
+            // [['gallery'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 4], // галерея изображения
         ];
     }
 
@@ -69,10 +95,27 @@ class Product extends \yii\db\ActiveRecord
             'price' => 'Цена',
             'keywords' => 'Ключевые слова',
             'description' => 'Мета-описание',
-            'img' => 'Фото',
+            'image' => 'Фото',
             'hit' => 'Хит',
             'new' => 'Новинка',
             'sale' => 'Распродажа',
         ];
+    }
+
+
+    /**
+     * Upload image
+     * Notre propre methode
+     */
+    public function upload()
+    {
+       if($this->validate())
+       {
+            $path = 'upload/store/' . $this->image->baseName . '.' . $this->image->extension;
+            $this->image->saveAs($path);
+            return true;
+       }else{
+           return false;
+       }
     }
 }

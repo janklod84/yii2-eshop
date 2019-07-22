@@ -1,0 +1,12 @@
+https://github.com/CostaRico/yii2-images
+
+{
+    "require": {
+        "costa-rico/yii2-images": "dev-master"
+    }
+}
+
+
+cmd>composer update
+
+cmd>php yii migrate/up --migrationPath=@vendor/costa-rico/yii2-images/migrations
